@@ -1,13 +1,13 @@
 #include <WiFi.h>
 #include <WiFiUdp.h>
-#include <WebServer.h> // <-- eklendi
+#include <WebServer.h> 
 
 const char* ssid = "Wifi Name";
 const char* password = "WiFi Password";
-byte macAddress[] = { 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF }; // dummy mac adress
+byte macAddress[] = { 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF }; 
 
 WiFiUDP udp;
-WebServer server(80); // <-- eklendi
+WebServer server(80); 
 
 void sendWOL() {
   const int wolPort = 9;
@@ -22,7 +22,7 @@ void sendWOL() {
   Serial.println("Wake-on-LAN paketi gönderildi.");
 }
 
-// HTTP tetikleyici endpoint
+// HTTP trigger endpoint
 void handleWOL() {
   sendWOL();
   server.send(200, "text/plain", "WOL sent!");
@@ -39,11 +39,11 @@ void setup() {
   Serial.println("\nConnected!");
   Serial.println(WiFi.localIP());
 
-  server.on("/wake", handleWOL);  // <-- tetikleme için endpoint
+  server.on("/wake", handleWOL); 
   server.begin();
   Serial.println("HTTP server started");
 }
 
 void loop() {
-  server.handleClient();  // <-- HTTP isteklerini dinle
+  server.handleClient();  
 }
